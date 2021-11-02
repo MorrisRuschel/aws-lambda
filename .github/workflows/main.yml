@@ -24,11 +24,10 @@ jobs:
 
       - name: Set flag from Commit
         env:
-          FUNCTION_EXISTS: ${ aws lambda get-function --function-name api-reports }
+          FUNCTION_EXISTS: ${ aws lambda get-function --function-name testInvoke1 }
         run: |
           if ${FUNCTION_EXISTS} == true; then
             echo "EXISTE"
           else
             echo "NÃO EXISTE"
           fi
-
