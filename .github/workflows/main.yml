@@ -13,13 +13,30 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-      - name: deploy
+
+      - name: Deploy api-reports to AWS Lambda
         run: |
-          zip -j deploy.zip ./code/*
-          aws lambda update-function-code --function-name=${{ secrets.AWS_LAMBDA_NAME }} --zip-file=fileb://deploy.zip
+          zip -j reports.zip ./reports/*
+          aws lambda update-function-code --function-name=api-reports --zip-file=fileb://reports.zip
+
+      - name: Deploy api-files to AWS Lambda
+        run: |
+          zip -j files.zip ./files/*
+          aws lambda update-function-code --function-name=api-files --zip-file=fileb://files.zip
+
+      - name: Deploy api-notications to AWS Lambda
+        run: |
+          zip -j notications.zip ./notications/*
+          aws lambda update-function-code --function-name=api-notications --zip-file=fileb://notications.zip
+
+      - name: Deploy api-logs to AWS Lambda
+        run: |
+          zip -j logs.zip ./logs/*
+          aws lambda update-function-code --function-name=api-logs --zip-file=fileb://logs.zip
