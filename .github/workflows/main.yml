@@ -5,18 +5,6 @@ on:
     branches:
     - main
 
-function does_lambda_exist()
-{
-  aws lambda get-function --function-name $1 > /dev/null 2>&1
-  if [ 0 -eq $? ]; then
-    echo "Lambda '$1' exists"
-  else
-    echo "Lambda '$1' does not exist"
-  fi
-}
-
-does_lambda_exist my_lambda_fn_name
-
 jobs:
   # JOB 01
   Deploying_functions:
@@ -33,16 +21,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Set flag from Commit
-        env:
-          FUNCTION_EXISTS: ${ aws lambda get-function --function-name testInvoke1 }
-        run: |
-          if ${FUNCTION_EXISTS} == true; then
-            echo "EXISTE"
-          else
-            echo "NÃO EXISTE"
-          fi
 
       - name: Deploy api-reports to AWS Lambda
         run: |
