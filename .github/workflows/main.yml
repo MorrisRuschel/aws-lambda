@@ -27,4 +27,4 @@ jobs:
       - name: deploy
         run: |
           zip -j deploy.zip ./code/*
-          aws lambda update-function-code --function-name=lambda-gh-action --zip-file=fileb://deploy.zip
+          aws lambda update-function-code --function-name=${{ secrets.AWS_LAMBDA_NAME }} --zip-file=fileb://deploy.zip
