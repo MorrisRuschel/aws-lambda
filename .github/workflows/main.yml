@@ -32,10 +32,10 @@ jobs:
           zip -j files.zip ./files/*
           aws lambda update-function-code --function-name=api-files --zip-file=fileb://files.zip
 
-      - name: Deploy api-notications to AWS Lambda
+      - name: Deploy api-notifications to AWS Lambda
         run: |
-          zip -j notications.zip ./notications/*
-          aws lambda update-function-code --function-name=api-notications --zip-file=fileb://notications.zip
+          zip -j notifications.zip ./notifications/*
+          aws lambda update-function-code --function-name=api-notifications --zip-file=fileb://notifications.zip
 
       - name: Deploy api-logs to AWS Lambda
         run: |
